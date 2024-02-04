@@ -9,7 +9,6 @@ import {
   COUNTS_LOCALSTORAGE_KEY,
   FUEL_TANK_LEVEL_LOCALSTORAGE_KEY,
   chunk,
-  durationTypeLaunchPoints,
   eggs,
   fuelTankCapacities,
   loadCounts,
@@ -66,16 +65,16 @@ function App() {
   );
 
   // todo: implement this display
-  const _launchPoints = useMemo(() => {
-    const lps = ships.map(() => 0);
-    missions.forEach((mission, i) => {
-      const count = Math.floor(counts[i]);
-      lps[mission.ship] +=
-        durationTypeLaunchPoints(mission.durationType) * count;
-    });
+  // const _launchPoints = useMemo(() => {
+  //   const lps = ships.map(() => 0);
+  //   missions.forEach((mission, i) => {
+  //     const count = Math.floor(counts[i]);
+  //     lps[mission.ship] +=
+  //       durationTypeLaunchPoints(mission.durationType) * count;
+  //   });
 
-    return lps;
-  }, [counts]);
+  //   return lps;
+  // }, [counts]);
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
