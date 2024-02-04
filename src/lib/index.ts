@@ -406,7 +406,7 @@ export const missions = [
 	},
 ];
 
-export const fuelTankCapacities = [2e9, 200e9, 10e12, 100e12] as const;
+export const fuelTankCapacities = [2e9, 200e9, 10e12, 100e12, 200e12, 300e12, 400e12, 500e12] as const;
 
 export const FUEL_TANK_LEVEL_LOCALSTORAGE_KEY = 'fuelTankLevel' as const;
 export const COUNTS_LOCALSTORAGE_KEY = 'counts' as const;
