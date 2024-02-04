@@ -251,7 +251,7 @@ function App() {
         </div> */}
         <div className="flex flex-col items-center">
           <table className="table table-lg items-center max-w-2xl">
-            <thead>
+            <thead className="text-center">
               <th>Name</th>
               <th>Short</th>
               <th>Standard</th>
@@ -269,7 +269,7 @@ function App() {
                         </div>
                       </div>
                       <div>
-                        <div className="font-bold italic pretty">
+                        <div className="text-lg">
                           {ship.name}
                         </div>
                       </div>
@@ -290,7 +290,7 @@ function App() {
                   const mission_index = ship_index * 3 + i;
 
                   return (
-                    <td>
+                    <td className="text-center">
                       <input
                         type="text"
                         value={counts[mission_index]}
@@ -301,7 +301,7 @@ function App() {
                           );
                           setCounts(newCounts);
                         }}
-                        className={`input input-bordered input-md w-full max-w-[3rem] ${
+                        className={`input input-bordered text-center input-md w-full max-w-[3rem] ${
                           borders[mission.durationType]
                         }`}
                       />
