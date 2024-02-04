@@ -141,7 +141,7 @@ function App() {
                   <WarningCircle className="w-5 h-5" />
                 </span>
               </div>
-              <div className="grid md:grid-cols-5 grid-cols-2 text-gray-600 dark:text-gray-400 text-lg">
+              <div className="text-gray-600 dark:text-gray-400 text-lg flex flex-wrap justify-between">
                 {(fuels.length
                   ? fuels
                   : [
@@ -155,7 +155,7 @@ function App() {
                 ).map((fuel) => {
                   return (
                     <div
-                      className="flex items-center justify-between tooltip"
+                      className="flex items-center justify-between tooltip w-[fit-content]"
                       data-tip={fuel.name}
                     >
                       <div className="flex items-center">
