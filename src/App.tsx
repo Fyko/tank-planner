@@ -199,7 +199,6 @@ function App() {
               </label>
             </label>
           </div>
-          {/* <div className="grid grid-flow-row grid-cols-1 space-x-2"> */}
           <button
             onClick={clear}
             className="btn md:btn-md btn-sm dark:bg-blue-600 dark:text-white rounded-md shadow-md hover:bg-blue-800"
@@ -209,7 +208,6 @@ function App() {
               Reset
             </span>
           </button>
-          {/* </div> */}
         </div>
         {/* <div className="flex flex-col items-center">
           <div className="grid items-center md:grid-cols-3 grid-cols-1 gap-2 max-w-full">
