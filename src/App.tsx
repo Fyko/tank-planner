@@ -109,28 +109,26 @@ function App() {
         </div>
       </header>
       <main className="overflow-x-auto">
-        <div className="flex align-top justify-between px-6 py-4">
-          <div className="">
-            <div className="grid grid-flow-col gap-x-4">
-              <label className="form-control w-full max-w-xs">
-                <div className="label pt-0">
-                  <span className="label-text">Tank Size</span>
-                </div>
-                <select
-                  className="select select-bordered lg:select-md select-xs"
-                  value={fuelTankLevel}
-                  onChange={(e) => setFuelTankLevel(parseInt(e.target.value))}
-                >
-                  {fuelTankCapacities.map((capacity, i) => {
-                    return (
-                      <option value={i}>
-                        {formatEIValue(capacity, { trim: true })}
-                      </option>
-                    );
-                  })}
-                </select>
-              </label>
-            </div>
+        <div className="flex items-center justify-center px-6 py-4 gap-x-5">
+          <div className="grid grid-flow-col gap-x-4">
+            <label className="form-control w-full max-w-xs mt-[-30px]">
+              <div className="label pt-0">
+                <span className="label-text">Tank Size</span>
+              </div>
+              <select
+                className="select select-bordered select-md"
+                value={fuelTankLevel}
+                onChange={(e) => setFuelTankLevel(parseInt(e.target.value))}
+              >
+                {fuelTankCapacities.map((capacity, i) => {
+                  return (
+                    <option value={i}>
+                      {formatEIValue(capacity, { trim: true })}
+                    </option>
+                  );
+                })}
+              </select>
+            </label>
           </div>
           <div className="w-full lg:max-w-sm max-w-xs mx-2">
             <label>
@@ -143,7 +141,7 @@ function App() {
                   <WarningCircle className="w-5 h-5" />
                 </span>
               </div>
-              <div className="grid md:grid-cols-5 grid-cols-2 text-gray-600 dark:text-gray-400 text-lg">
+              <div className="text-gray-600 dark:text-gray-400 text-lg flex flex-wrap justify-between">
                 {(fuels.length
                   ? fuels
                   : [
@@ -157,7 +155,7 @@ function App() {
                 ).map((fuel) => {
                   return (
                     <div
-                      className="flex items-center justify-between tooltip"
+                      className="flex items-center justify-between tooltip w-[fit-content]"
                       data-tip={fuel.name}
                     >
                       <div className="flex items-center">
@@ -201,17 +199,15 @@ function App() {
               </label>
             </label>
           </div>
-          <div className="grid grid-flow-row grid-cols-1 space-x-2">
-            <button
-              onClick={clear}
-              className="btn md:btn-md btn-sm dark:bg-blue-600 dark:text-white rounded-md shadow-md hover:bg-blue-800"
-            >
-              <Eraser className="lg:h-6 lg:w-6 h-4 w-4" />
-              <span className="text-md font-semibold md:visible invisible">
-                Reset
-              </span>
-            </button>
-          </div>
+          <button
+            onClick={clear}
+            className="btn md:btn-md btn-sm dark:bg-blue-600 dark:text-white rounded-md shadow-md hover:bg-blue-800"
+          >
+            <Eraser className="lg:h-6 lg:w-6 h-4 w-4" />
+            <span className="text-md font-semibold md:visible invisible">
+              Reset
+            </span>
+          </button>
         </div>
         {/* <div className="flex flex-col items-center">
           <div className="grid items-center md:grid-cols-3 grid-cols-1 gap-2 max-w-full">
@@ -269,9 +265,7 @@ function App() {
                         </div>
                       </div>
                       <div>
-                        <div className="text-lg">
-                          {ship.name}
-                        </div>
+                        <div className="text-lg">{ship.name}</div>
                       </div>
                     </div>
                   </td>
@@ -290,7 +284,7 @@ function App() {
                   const mission_index = ship_index * 3 + i;
 
                   return (
-                    <td className="text-center">
+                    <td className="text-center items-center justify-center">
                       <input
                         type="text"
                         value={counts[mission_index]}
@@ -301,7 +295,7 @@ function App() {
                           );
                           setCounts(newCounts);
                         }}
-                        className={`input input-bordered text-center input-md w-full max-w-[3rem] ${
+                        className={`input input-bordered text-center input-md w-[50px] px-0 ${
                           borders[mission.durationType]
                         }`}
                       />
