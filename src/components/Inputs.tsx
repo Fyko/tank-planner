@@ -55,7 +55,7 @@ export default function Inputs({
                   onChange={(event) => {
                     const newCounts = [...counts];
                     newCounts[mission_index] = Number.parseFloat(
-                      event.target.value || "0"
+                      event.target.value || "0",
                     );
                     setCounts(newCounts);
                   }}

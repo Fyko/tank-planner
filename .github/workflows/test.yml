@@ -1,0 +1,31 @@
+name: Testing
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v1
+        id: install-bun
+
+      - name: Restore Bun cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: ${{ runner.os }}-${{ steps.install-bun.outputs.bun-version }}-bun-${{ hashFiles('**/bun.lockb') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ steps.install-bun.outputs.bun-version }}-bun-
+
+      - run: bun install --frozen-lockfile --no-progress
+
+      - run: bun run lint
+      - run: bun run build
