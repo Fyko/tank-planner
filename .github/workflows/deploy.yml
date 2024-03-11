@@ -1,0 +1,63 @@
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - NEVER
+
+env:
+  PRODUCTION_BRANCH: main
+  PAGES_PROJECT_NAME: tank-planner
+  CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+  CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v1
+      - run: bun install --frozen-lockfile
+      - run: bun run build
+
+      - name: Check if Cloudflare Pages Project exists
+        shell: bash
+        id: check-project
+        run: |
+          check=$(curl -s -X GET "https://api.cloudflare.com/client/v4/accounts/${{ env.CLOUDFLARE_ACCOUNT_ID }}/pages/projects/${{ env.PAGES_PROJECT_NAME }}" \
+            -H "Authorization: Bearer ${{ env.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type:application/json" | jq -r '.success')
+          echo "result=$check" >> $GITHUB_OUTPUT
+
+      - name: Create Cloudflare Pages Project (if it doesn't exist)
+        shell: bash
+        if: steps.check-project.outputs.result != 'true'
+        run: |
+          curl -s -X POST "https://api.cloudflare.com/client/v4/accounts/${{ env.CLOUDFLARE_ACCOUNT_ID }}/pages/projects" \
+            -H "Authorization: Bearer ${{ env.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type:application/json" \
+            --data '{"name":"${{ env.PAGES_PROJECT_NAME }}", "production_branch":"${{ env.PRODUCTION_BRANCH }}"}'
+
+      - name: Get Branch
+        id: get-branch
+        run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+
+      - name: Deploy Pages Site
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: ${{ env.PAGES_PROJECT_NAME }}
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ steps.get-branch.outputs.branch }}
+          wranglerVersion: 3
+
+      # - name: Deploy Pages Site
+      #   run: |
+      #     branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}
+      #     bunx --bun pages deploy \
+      #       --project-name="${{ env.PAGES_PROJECT_NAME }}" \
+      #       --branch="$branch" \
+      #       "dist"
