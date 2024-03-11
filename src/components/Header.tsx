@@ -1,4 +1,4 @@
-import { DiscordLogo, HandHeart } from "@phosphor-icons/react";
+import { DiscordLogo, GithubLogo, HandHeart } from "@phosphor-icons/react";
 
 export default function Header() {
   return (
@@ -17,14 +17,20 @@ export default function Header() {
         />
         <h1 className="text-xl font-semibold italic pretty">Tank Planner</h1>
       </div>
-      <div className="grid grid-flow-col grid-cols-2 gap-3">
-        <a href="#" target="_blank">
+      <div className="grid grid-flow-col grid-cols-3 gap-3">
+        <a href="https://github.com/Fyko/tank-planner" target="_blank">
+          <button className="btn btn-sm btn-ghost btn-square" type="button">
+            <GithubLogo className="h-6 w-6 text-white" />
+            <span className="sr-only">GitHub</span>
+          </button>
+        </a>
+        <a href="https://discord.gg/HnyYTnQzJW" target="_blank">
           <button className="btn btn-sm btn-ghost btn-square" type="button">
             <DiscordLogo className="h-6 w-6 text-[#7289DA]" />
             <span className="sr-only">Support</span>
           </button>
         </a>
-        <a href="#" target="_blank">
+        <a href="https://ko-fi.com/carterh" target="_blank">
           <button className="btn btn-sm btn-ghost btn-square" type="button">
             <HandHeart className="h-6 w-6" color="#db61a2" />
             <span className="sr-only">Sponsor</span>
