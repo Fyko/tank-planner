@@ -4,9 +4,10 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "dev": "bunx --bun vite",
+    "build": "vite build",
+    "lint": "bunx --bun prettier --check . && bunx --bun eslint --format=pretty \"src/**\"",
+    "format": "bunx --bun prettier --write . && bunx --bun eslint --fix --format=pretty \"src/**\"",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -22,12 +23,19 @@
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.17",
     "daisyui": "^4.6.1",
-    "eslint": "^8.55.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.5",
+    "eslint": "^8.54.0",
+    "eslint-config-neon": "^0.1.57",
+    "eslint-formatter-pretty": "^5",
+    "eslint-plugin-prettier": "^5.0.1",
     "postcss": "^8.4.33",
+    "prettier": "^3.1.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "lodash.merge": "^4.6.2"
+  },
+  "volta": {
+    "node": "20.11.1",
+    "pnpm": "8.15.4"
   }
 }

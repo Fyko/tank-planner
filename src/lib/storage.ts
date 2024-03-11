@@ -1,36 +1,34 @@
 export function getLocalStorage(key: string, prefix?: string) {
-    if (prefix === undefined) {
-        prefix = `${window.location.pathname}_`;
-    }
-    try {
-        return localStorage[prefix + key];
-    }
-    catch (err) {
-        console.error(err);
-        return undefined;
-    }
+  const checkedPrefix = prefix ?? `${window.location.pathname}_`;
+
+  try {
+    return localStorage.getItem(checkedPrefix + key);
+  } catch (error) {
+    console.error(error);
+    return undefined;
+  }
 }
 
 export function getLocalStorageNoPrefix(key: string) {
-    return getLocalStorage(key, '');
+  return getLocalStorage(key, "");
 }
 
 export function setLocalStorage(key: string, val: string, prefix?: string) {
-    if (prefix === undefined) {
-        prefix = `${window.location.pathname}_`;
-    }
-    try {
-        localStorage[prefix + key] = val;
-    }
-    catch (err) {
-        console.error(err);
-    }
+  const checkedPrefix = prefix ?? `${window.location.pathname}_`;
+
+  try {
+    localStorage.setItem(checkedPrefix + key, val);
+
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export function setLocalStorageNoPrefix(key: string, val: string) {
-    setLocalStorage(key, val, '');
+  setLocalStorage(key, val, "");
 }
 
 export function iconURL(relpath: string) {
-    return `/eggs/${relpath}`;
+  return `/eggs/${relpath}`;
 }
