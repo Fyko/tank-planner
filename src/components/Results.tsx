@@ -30,50 +30,29 @@ export default function Results({
   }, [fuelTankLevel]);
   const fuelTankCapacity = useMemo(
     () => fuelTankCapacities[fuelTankLevel],
-    [fuelTankLevel],
+    [fuelTankLevel]
   );
 
   const totalFuel = useMemo(
     () => fuels.reduce((sum, { amount }) => sum + amount, 0),
-    [fuels],
+    [fuels]
   );
   const fuelTankPercentage = useMemo(
     () => (totalFuel / fuelTankCapacity) * 100,
-    [totalFuel, fuelTankCapacity],
+    [totalFuel, fuelTankCapacity]
   );
   const fuelTankOverCapacity = useMemo(
     () => totalFuel >= fuelTankCapacity,
-    [totalFuel, fuelTankCapacity],
+    [totalFuel, fuelTankCapacity]
   );
 
   return (
-    <div className="flex items-center justify-center px-6 py-4 gap-x-5">
-      <div className="grid grid-flow-col gap-x-4">
-        <label className="form-control w-full max-w-xs mt-[-30px]">
-          <div className="label pt-0">
-            <span className="label-text">Tank Size</span>
-          </div>
-          <select
-            className="select select-bordered select-md"
-            value={fuelTankLevel}
-            onChange={({ target: { value } }) =>
-              setFuelTankLevel(Number.parseInt(value, 10))
-            }
-          >
-            {fuelTankCapacities.map((capacity, capacity_idx) => {
-              return (
-                <option value={capacity_idx}>
-                  {formatEIValue(capacity, { trim: true })}
-                </option>
-              );
-            })}
-          </select>
-        </label>
-      </div>
+    <div className="flex flex-col items-center justify-center px-6 py-4 gap-1">
       <div className="w-full lg:max-w-sm max-w-xs mx-2">
         <label>
           <div className="label pt-0">
             <span className="label-text">Needed Fuel</span>
+
             <span
               className="label-text-alt tooltip tooltip-bottom"
               data-tip="Note that fueling in-game is imprecise; a mission could actually take slightly more or less fuel (usually by a fraction of an egg) than advertised. Therefore you should always have a little surplus of each fuel when planning your tank. A precisely planned tank — e.g. a full 100T tank for 10 extended Henerprises — is pointless and will likely leave you disappointed."
@@ -135,16 +114,36 @@ export default function Results({
           </label>
         </label>
       </div>
-      <button
-        onClick={onClear}
-        className="btn md:btn-md btn-sm dark:bg-blue-600 dark:text-white rounded-md shadow-md hover:bg-blue-800"
-        type="reset"
-      >
-        <Eraser className="lg:h-6 lg:w-6 h-4 w-4" />
-        <span className="text-md font-semibold md:visible invisible">
-          Reset
-        </span>
-      </button>
+      <div className="grid grid-flow-col items-end gap-5">
+        <label className="form-control w-full max-w-xs">
+          <div className="label p-0">
+            <span className="label-text">Tank Size</span>
+          </div>
+          <select
+            className="select select-bordered select-sm"
+            value={fuelTankLevel}
+            onChange={({ target: { value } }) =>
+              setFuelTankLevel(Number.parseInt(value, 10))
+            }
+          >
+            {fuelTankCapacities.map((capacity, capacity_idx) => {
+              return (
+                <option value={capacity_idx}>
+                  {formatEIValue(capacity, { trim: true })}
+                </option>
+              );
+            })}
+          </select>
+        </label>
+        <button
+          onClick={onClear}
+          className="btn btn-sm dark:bg-blue-600 dark:text-white rounded-md shadow-md hover:bg-blue-800"
+          type="reset"
+        >
+          <Eraser className="h-4 w-4" />
+          <p>Reset</p>
+        </button>
+      </div>
     </div>
   );
 }

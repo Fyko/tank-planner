@@ -17,7 +17,7 @@ function ShipName({ ship }: { readonly ship: (typeof ships)[number] }) {
           </div>
         </div>
         <div>
-          <div className="text-lg">{ship.name}</div>
+          <p>{ship.name}</p>
         </div>
       </div>
     </td>
@@ -32,7 +32,7 @@ export default function Inputs({
   readonly setCounts: Dispatch<SetStateAction<number[]>>;
 }) {
   return (
-    <table className="table table-lg items-center max-w-2xl">
+    <table className="table sm:table-sm items-center max-w-2xl mb-8">
       <thead className="text-center">
         <th>Name</th>
         <th>Short</th>

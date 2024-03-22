@@ -41,9 +41,9 @@ function App() {
   // }, [counts]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
+    <div className="flex flex-col min-h-screen overflow-x-auto bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-gray-100">
       <Header />
-      <main className="overflow-x-auto">
+      <main>
         <Results fuels={fuels} onClear={clear} />
         <div className="flex flex-col items-center">
           <Inputs counts={counts} setCounts={setCounts} />
